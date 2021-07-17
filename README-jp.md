@@ -1,12 +1,13 @@
-# __app__
+# indenter
 <!-- Character Encoding: "WHITE SQUARE" U+25A1 is □. -->
 
-`.git` フォルダーを元にブランチごとにフォルダーを作り、それぞれのフォルダーでチェックアウトします。
+`indenter` コマンドは、クリップボードにあるテキストにインデントを入れたり、インデントを削除したりします。
 
 <!-- TOC depthFrom:1 -->
 
-- [__app__](#app)
-  - [使い方](#使い方)
+- [indenter](#indenter)
+  - [使い方 - インデントを入れます](#使い方---インデントを入れます)
+  - [使い方 - インデントを削除します](#使い方---インデントを削除します)
   - [インストール](#インストール)
     - [Windows の場合](#windows-の場合)
     - [mac の場合](#mac-の場合)
@@ -20,16 +21,50 @@
 <!-- /TOC -->
 
 
-## 使い方
+## 使い方 - インデントを入れます
 
-__app__ をインストールしてから、シェルで実行します。
+1. （初回のみ）indenter をインストールします
+2. クリップボードに編集するテキストをコピーします。
+   ただし、テキストの 1行目は、2行目以降に入れるインデントを入れてください
 
-    __app__  __Path__
+               Section 1:   
+       Section 2:
+         Section 2-1:
+
+3. indenter を実行します
+4. クリップボードにインデントが入ったテキストがコピーされます
+
+               Section 1:   
+               Section 2:
+                 Section 2-1:
+
+テキストの 1行目のインデントより浅いインデントの行があると、
+インデントを入れます。
+
+
+## 使い方 - インデントを削除します
+
+1. （初回のみ）indenter をインストールします
+2. クリップボードに編集するテキストをコピーします
+
+               Section 1:   
+               Section 2:
+                 Section 2-1:
+
+3. indenter を実行します
+4. クリップボードにインデントが入ったテキストがコピーされます
+
+       Section 1:   
+       Section 2:
+         Section 2-1:
+
+テキストの 1行目のインデントより浅いインデントの行がないと、
+インデントを削除します。
 
 
 ## インストール
 
-__app__ を使うには Node.js のインストールが必要です。
+indenter を使うには Node.js のインストールが必要です。
 
 ### Windows の場合
 
@@ -43,26 +78,25 @@ __app__ を使うには Node.js のインストールが必要です。
             npm config -g set proxy "http://___.___.___.___:____"
             npm config -g set https-proxy "http://___.___.___.___:____"
 
-    __app__ をダウンロードして展開し、__app__ が使う Node.js パッケージをインストールします:
+    indenter をダウンロードして展開し、indenter が使う Node.js パッケージをインストールします:
         Windows スタート >> PowerShell（と入力）:
             cd  ${env:USERPROFILE}\Downloads
-            Invoke-WebRequest  https://github.com/Takakiriy/__app__/archive/refs/heads/master.zip -OutFile __app__.zip
-            rm -r -fo  "__app__-master"  #// 更新するとき
-            Expand-Archive -Path __app__.zip -DestinationPath "."
-            cd  "__app__-master"
+            Invoke-WebRequest  https://github.com/Takakiriy/indenter/archive/refs/heads/master.zip -OutFile indenter.zip
+            rm -r -fo  "indenter-master"  #// 更新するとき
+            Expand-Archive -Path indenter.zip -DestinationPath "."
+            cd  "indenter-master"
 
             npm install --only=production
 
     PowerShell を使う場合:
-        PowerShell の PATH が通ったフォルダーに __app__ を起動する PS1 スクリプト ファイル を作ります:
+        PowerShell の PATH が通ったフォルダーに indenter を起動する PS1 スクリプト ファイル を作ります:
             Windows スタート >> PowerShell（と入力） :
-                cd  ${env:USERPROFILE}\Downloads\__app__-master
+                cd  ${env:USERPROFILE}\Downloads\indenter-master
                 ${current_folder} = Convert-Path "."
-                ${__app___folder} = "${env:USERPROFILE}\Documents\__app__"
-                ${script} = "${env:USERPROFILE}\AppData\Local\Microsoft\WindowsApps\__app__.ps1"
+                ${script} = "${env:USERPROFILE}\AppData\Local\Microsoft\WindowsApps\indenter.ps1"
 
                 echo  "`${env:NODE_PATH} = `"${current_folder}\node_modules`"" > ${script}
-                echo  "node  ${current_folder}\build\__app__.js `$PsBoundParameters.Values `$args" >> ${script}
+                echo  "node  ${current_folder}\build\indenter.js `$PsBoundParameters.Values `$args" >> ${script}
 
                 Set-ExecutionPolicy  RemoteSigned  -Scope CurrentUser  #// スクリプトを実行できるようにします
 
@@ -73,20 +107,19 @@ __app__ を使うには Node.js のインストールが必要です。
             - Next を8回押す
             - Configuring the line ending conversions: Checkout as-is, commit as-is
             - 他のインストール オプションはデフォルトを使用
-        PATH が通ったフォルダーに __app__ を起動する bash スクリプト ファイル を作ります:
+        PATH が通ったフォルダーに indenter を起動する bash スクリプト ファイル を作ります:
             フォルダーを右クリック >> Git bash :
-                cd  ${HOME}/Downloads/__app__-master
+                cd  ${HOME}/Downloads/indenter-master
                 current_folder="$(pwd)"
-                __app___folder="${HOME}/Documents/__app__"
-                script="${HOME}/bin/__app__"
+                script="${HOME}/bin/indenter"
                 mkdir -p "${HOME}/bin"
 
                 echo  "export NODE_PATH=\"${HOME}/AppData/Roaming/npm/node_modules\"" > ${script}
-                echo  "node  ${current_folder}/build/__app__.js \"\$@\"" >> ${script}
+                echo  "node  ${current_folder}/build/indenter.js \"\$@\"" >> ${script}
 
-    __app__ が使えることを確認します:
+    indenter が使えることを確認します:
         PowerShell または Git bash を新しく開いて:
-            __app__ --version
+            indenter --version
 
 ### mac の場合
 
@@ -95,30 +128,30 @@ __app__ を使うには Node.js のインストールが必要です。
         - ダウンロードしたファイル（例：node-v14.16.0.pkg）を開きます
         - インストール オプションはデフォルトを使用
 
-    __app__ をダウンロードして展開し、__app__ が使う Node.js パッケージをインストールします:
+    indenter をダウンロードして展開し、indenter が使う Node.js パッケージをインストールします:
         #// Launchpad >> Terminal
         cd  ~/Downloads
         setopt interactivecomments
             #// enables comment symbol (#)
-        curl -o __app__.zip -kL https://github.com/Takakiriy/__app__/archive/refs/heads/master.zip 
-        rm -rf  __app__-old  &&  mv  __app__  __app__-old  #// 更新するとき
-        unzip -o __app__.zip
-        mv  __app__-master  __app__  #// Zip ファイルを展開したフォルダー
-        cd  __app__
+        curl -o indenter.zip -kL https://github.com/Takakiriy/indenter/archive/refs/heads/master.zip 
+        rm -rf  indenter-old  &&  mv  indenter  indenter-old  #// 更新するとき
+        unzip -o indenter.zip
+        mv  indenter-master  indenter  #// Zip ファイルを展開したフォルダー
+        cd  indenter
 
         npm install --only=production
 
-    PATH が通ったフォルダーに __app__ を起動する スクリプト ファイル を作ります:
-        cd __app__  #// Zip ファイルを展開したフォルダー
-        script="$HOME/bin/__app__"
+    PATH が通ったフォルダーに indenter を起動する スクリプト ファイル を作ります:
+        cd indenter  #// Zip ファイルを展開したフォルダー
+        script="$HOME/bin/indenter"
         rm -f "${script}"  #// 更新するとき
         echo "export  NODE_PATH=$(pwd)/node_modules" >> "${script}"
-        echo "node  $(pwd)/build/__app__.js \"\$@\"" >> "${script}"
+        echo "node  $(pwd)/build/indenter.js \"\$@\"" >> "${script}"
         chmod +x "${script}"
         unset script
 
-    __app__ が使えることを確認します:
-        __app__ --version
+    indenter が使えることを確認します:
+        indenter --version
 
 
 ## （開発者用） 開発環境の構築手順

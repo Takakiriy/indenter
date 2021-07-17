@@ -1,32 +1,47 @@
-import * as path from "path";  // or path = require("path")
-import * as readline from 'readline';
-import * as lib from "./lib";
+import * as clipboardy from 'clipboardy';
+import { pp } from "./lib";
 
 // main
 export async function  main() {
-    locale = Intl.NumberFormat().resolvedOptions().locale;
-    if ('locale' in programOptions) {
-        locale = programOptions.locale;
-    }
 
-    if ('command' in programOptions) {
-        if (programOptions.command === 'stdout') {
-            console.log('ABC');
-            console.log('DE');
-            console.log(programArguments);
-        } else if (programOptions.command === 'show-locale') {
-            console.log(locale);
+    const  inputText = clipboardy.readSync();
+    const  lines = inputText.split('\n');
+    const  nullLength = 9999;
+    const  indentRegularExpression = /^( |¥t)*/;
+    if (inputText.trim() === '') {
+        return;
+    }
+    var  minIndentLength = nullLength;
+    for (const line of lines) {
+        if (line.trim() !== '') {
+            const  indentLength = indentRegularExpression.exec( line )![0].length;
+            minIndentLength = Math.min(minIndentLength, indentLength)
         }
-    } else if ('input' in programOptions) {
-        const  key = await lib.input('input>')
-        console.log(key);
-    } else {
-        console.log('main');
     }
-}
+    const  firstLineIndent = indentRegularExpression.exec( lines[0] )![0];
+    if (minIndentLength === nullLength) {
+        return;
+    }
 
-function  add(a: number, b: number): number {
-    return  a + b;
+    if (minIndentLength < firstLineIndent.length) {
+
+        // insert indent
+        for (var lineNum = 2;  lineNum < lines.length;  lineNum += 1 ) {
+            if (lines[lineNum - 1] !== '') {
+
+                lines[lineNum - 1] = firstLineIndent + lines[lineNum - 1];
+            }
+        }
+    } else {
+
+        // cut indent
+        for (var lineNum = 1;  lineNum < lines.length;  lineNum += 1 ) {
+            lines[lineNum - 1] = lines[lineNum - 1].substr(minIndentLength);
+        }
+    }
+
+    const  outputText = lines.join('\n');
+    clipboardy.writeSync(outputText);
 }
 
 
@@ -36,57 +51,6 @@ function  add(a: number, b: number): number {
 function  getStdOut(): string[] {
     return  stdout.split('\n');
 }
-
-// pp
-// Debug print.
-// #keyword: pp
-// Example:
-//    pp(var);
-// Example:
-//    var d = pp(var);
-//    d = d;  // Set break point here and watch the variable d
-// Example:
-//    try {
-//
-//        await main();
-//    } finally {
-//        var d = pp('');
-//        d = [];  // Set break point here and watch the variable d
-//    }
-export function  pp(message: any) {
-    if (typeof message === 'object') {
-        message = JSON.stringify(message);
-    }
-    debugOut.push(message.toString());
-    return debugOut;
-}
-export const  debugOut: string[] = [];
-
-// cc
-// Through counter.
-// #keyword: cc
-// Example:
-//   cc();
-// Example:
-//   var c = cc().debugOut;  // Set break point here and watch the variable c
-// Example:
-//   if ( cc(2).isTarget )
-//   var d = pp('');  // Set break point here and watch the variable d
-export function  cc( targetCount: number = 9999999, label: string = '0' ) {
-    if (!(label in gCount)) {
-        gCount[label] = 0;
-    }
-
-    gCount[label] += 1;
-    pp( `${label}:countThrough[${label}] = ${gCount[label]}` );
-    const isTarget = ( gCount[label] === targetCount );
-
-    if (isTarget) {
-        pp( '    **** It is before the target! ****' );
-    }
-    return  { isTarget, debugOut };
-}
-const  gCount: {[name: string]: number} = {};
 
 // println
 // #keyword: println, console.log, consoleLog

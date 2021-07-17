@@ -1,5 +1,6 @@
 import * as main from './main';
 import * as path from "path";
+import * as clipboardy from 'clipboardy';
 import * as lib from "./lib";
 const  callMain = main.callMainFromJest;
 
@@ -8,22 +9,15 @@ if (path.basename(process.cwd()) !== 'src') {
     process.chdir('src');
 }
 
-// test
-test('First', () => {
-    callMain();
-});
+test.each([
+    ["insert indent"],
+    ["insert line 2 indent"],
+    ["cut indent"],
+])("%s", async (caseName) => {
+    const  inputText = lib.getSnapshot(`${caseName}: 1 sourceFileContents 1`);
+    clipboardy.writeSync(inputText);
 
-test('Check stdout', () => {
-    callMain(['A', 'B'], {'command': 'stdout'});
-    expect(main.stdout).toBe('ABC\nDE\n["A","B"]\n');
-});
-
-test('locale', () => {
-    const  defaultLocale = Intl.NumberFormat().resolvedOptions().locale;
-
-    callMain([], {'command': 'show-locale'});
-    expect(main.stdout).toBe(defaultLocale + '\n');
-
-    callMain([], {'command': 'show-locale', 'locale': 'fr-FR'});
-    expect(main.stdout).toBe('fr-FR\n');
+    await callMain([], {});
+    const  outputText = clipboardy.readSync();
+    expect(outputText).toMatchSnapshot('answer');
 });

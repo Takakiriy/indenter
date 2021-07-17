@@ -1,14 +1,14 @@
-# __app__
+# indenter
 
-__app__ creates each folder for each branch and check out in each folder
-based on the `.git` folder.
+`indenter` command inserts indent or removes indents from text on the clipboard.
 
 [日本語 README](./README-jp.md)
 
 <!-- TOC depthFrom:1 -->
 
-- [__app__](#app)
-  - [How to use](#how-to-use)
+- [indenter](#indenter)
+  - [How to use　- insert indent](#how-to-use--insert-indent)
+  - [How to use　- delete indent](#how-to-use--delete-indent)
   - [Install](#install)
     - [For Windows](#for-windows)
     - [For mac](#for-mac)
@@ -22,16 +22,51 @@ based on the `.git` folder.
 <!-- /TOC -->
 
 
-## How to use
+## How to use　- insert indent
 
-Install __app__ and then run it in your shell.
+1. (First time only) Install indenter
+2. Copy the text you want to edit to the clipboard.
+   Insert indent at the first line of text.
+   The length is the length to insert the second and other lines.
 
-    __app__  __Path__
+               Section 1:   
+       Section 2:
+         Section 2-1:
+
+3. Run indenter
+4. The indented text is copied to the clipboard
+
+               Section 1:   
+               Section 2:
+                 Section 2-1:
+
+If there was lines of indent that is shallower than
+the first line of text, indenter inserts the indent.
+
+
+## How to use　- delete indent
+
+1. (First time only) Install indenter
+2. Copy the text you want to edit to the clipboard
+
+               Section 1:   
+               Section 2:
+                 Section 2-1:
+
+3. Run indenter
+4. The deleted indent text is copied to the clipboard
+
+       Section 1:   
+       Section 2:
+         Section 2-1:
+
+If there is no line of indent that is shallower than
+the first line of text, indenter removes the indent.
 
 
 ## Install
 
-To use __app__, you must install Node.js.
+To use indenter, you must install Node.js.
 
 ### For Windows
 
@@ -45,26 +80,25 @@ To use __app__, you must install Node.js.
             - npm config -g set proxy "http://___.___.___.___:____"
             - npm config -g set https-proxy "http://___.___.___.___:____"
 
-    Download and expand __app__ and install Node.js packages used by __app__:
+    Download and expand indenter and install Node.js packages used by indenter:
         Windows Start >> (Input) PowerShell :
             cd  ${env:USERPROFILE}\Downloads
-            Invoke-WebRequest  https://github.com/Takakiriy/__app__/archive/refs/heads/master.zip -OutFile __app__.zip
-            rm -r -fo  "__app__-master"  #// When you are updating
-            Expand-Archive -Path __app__.zip -DestinationPath "."
-            cd  "__app__-master"
+            Invoke-WebRequest  https://github.com/Takakiriy/indenter/archive/refs/heads/master.zip -OutFile indenter.zip
+            rm -r -fo  "indenter-master"  #// When you are updating
+            Expand-Archive -Path indenter.zip -DestinationPath "."
+            cd  "indenter-master"
 
             npm install --only=production
 
     If you use PowerShell:
-        Create a PS1 script file that launches __app__ into the folder where PATH of PowerShell:
+        Create a PS1 script file that launches indenter into the folder where PATH of PowerShell:
             Windows Start >> (Input) PowerShell :
-                cd  ${env:USERPROFILE}\Downloads\__app__-master
+                cd  ${env:USERPROFILE}\Downloads\indenter-master
                 ${current_folder} = Convert-Path "."
-                ${__app___folder} = "${env:USERPROFILE}\Documents\__app__"
-                ${script} = "${env:USERPROFILE}\AppData\Local\Microsoft\WindowsApps\__app__.ps1"
+                ${script} = "${env:USERPROFILE}\AppData\Local\Microsoft\WindowsApps\indenter.ps1"
 
                 echo  "`${env:NODE_PATH} = `"${current_folder}\node_modules`"" > ${script}
-                echo  "node  ${current_folder}\build\__app__.js `$PsBoundParameters.Values `$args" >> ${script}
+                echo  "node  ${current_folder}\build\indenter.js `$PsBoundParameters.Values `$args" >> ${script}
 
                 Set-ExecutionPolicy  RemoteSigned  -Scope CurrentUser  #// Make the script run
 
@@ -75,20 +109,19 @@ To use __app__, you must install Node.js.
             - Press Next button 8 times
             - Configuring the line ending conversions: Checkout as-is, commit as-is
             - Other installation options are defaults
-        Create a bash script file that launches __app__ into the folder where PATH passed:
+        Create a bash script file that launches indenter into the folder where PATH passed:
             Right click at any folder >> Git bash :
-                cd  ${HOME}/Downloads/__app__-master
+                cd  ${HOME}/Downloads/indenter-master
                 current_folder="$(pwd)"
-                __app___folder="${HOME}/Documents/__app__"
-                script="${HOME}/bin/__app__"
+                script="${HOME}/bin/indenter"
                 mkdir -p "${HOME}/bin"
 
                 echo  "export NODE_PATH=\"${HOME}/AppData/Roaming/npm/node_modules\"" > ${script}
-                echo  "node  ${current_folder}/build/__app__.js \"\$@\"" >> ${script}
+                echo  "node  ${current_folder}/build/indenter.js \"\$@\"" >> ${script}
 
-    Check to use __app__ command:
+    Check to use indenter command:
         Open new PowerShell or new Git bash:
-            __app__ --version
+            indenter --version
 
 ### For mac
 
@@ -97,30 +130,30 @@ To use __app__, you must install Node.js.
         - Open the downloaded file (e.g. node-v14.16.0.pkg)
         - Installation options are defaults
 
-    Download and expand __app__ and install Node.js packages used by __app__:
+    Download and expand indenter and install Node.js packages used by indenter:
         #// Launchpad >> Terminal
         cd  ~/Downloads
         setopt interactivecomments
             #// enables comment symbol (#)
-        curl -o __app__.zip -kL https://github.com/Takakiriy/__app__/archive/refs/heads/master.zip 
-        rm -rf  __app__-old  &&  mv  __app__  __app__-old  #// When you are updating
-        unzip -o __app__.zip
-        mv  __app__-master  __app__  #// The folder extracted from the Zip file
-        cd  __app__
+        curl -o indenter.zip -kL https://github.com/Takakiriy/indenter/archive/refs/heads/master.zip 
+        rm -rf  indenter-old  &&  mv  indenter  indenter-old  #// When you are updating
+        unzip -o indenter.zip
+        mv  indenter-master  indenter  #// The folder extracted from the Zip file
+        cd  indenter
 
         npm install --only=production
 
-    Make the script file in the PATH folder to start __app__:
-        cd __app__  #// The folder extracted from the Zip file
-        script="$HOME/bin/__app__"
+    Make the script file in the PATH folder to start indenter:
+        cd indenter  #// The folder extracted from the Zip file
+        script="$HOME/bin/indenter"
         rm -f "${script}"  #// When you are updating
         echo "export  NODE_PATH=$(pwd)/node_modules" >> "${script}"
-        echo "node  $(pwd)/build/__app__.js \"\$@\"" >> "${script}"
+        echo "node  $(pwd)/build/indenter.js \"\$@\"" >> "${script}"
         chmod +x "${script}"
         unset script
 
-    Check to use __app__ command:
-        __app__ --version
+    Check to use indenter command:
+        indenter --version
 
 
 ## (for developers) How to build the development environment

@@ -1,123 +1,28 @@
-import * as fs from 'fs';
 import * as child_process from 'child_process';
 import * as path from 'path';
+import * as clipboardy from 'clipboardy';
 import * as lib from './lib';
 
-const  scriptPath =  `../build/app.js`;
+const  scriptPath =  `../build/indenter.js`;
 const  testFolderPath = `test_data` + path.sep;
 
-const  debug = false;
-
 async function  main() {
-    if (!debug) {
-        await TestOfFirst();
-        await TestOfOptions();
-        await TestOfLocale();
-    } else {
-        await TestOfLocale();
-    }
+	await TestOfSimpleRun();
 	console.log('Pass');
 }
 
-// TestOfFirst
-async function  TestOfFirst() {
+// TestOfSimpleRun
+async function  TestOfSimpleRun() {
 	let  returns: ProcessReturns;
 
-    console.log(`TestCase: TestOfFirst`);
+    console.log(`TestCase: TestOfSimpleRun`);
+	console.log(clipboardy.readSync());
 
     // Test Main
-    returns = await callChildProccess(`node ${scriptPath} --test --locale en-US`,
-        {inputLines: [
-            "exit()"
-        ]}
-    );
-    const  answer = fs.readFileSync(testFolderPath + "1_first_1_ok_1_answer.txt")
-        .toString().substr(cutBOM);
+    returns = await callChildProccess(`node ${scriptPath}`, {});
 
-    // Check
-    if (returns.stdout !== answer) {
-        printDifferentPaths(`_output.txt`, '1_first_1_ok_1_answer.txt');
-        fs.writeFileSync(testFolderPath + "_output.txt", returns.stdout);
-        throw new Error();
-    }
-}
-
-// TestOfOptions
-async function  TestOfOptions() {
-	let  returns: ProcessReturns;
-
-	const fileNameHeads = [
-		"2_options_1_command",
-		"2_options_2_input",
-	];
-	for (const fileNameHead of fileNameHeads) {
-
-		console.log(`TestCase: TestOfOptions >> ${fileNameHead}`);
-        if (fileNameHead === '2_options_1_command') {
-            var  options = 'A  B  --command stdout';
-        } else {
-            var  options = '--input';
-        }
-
-		// Test Main
-		returns = await callChildProccess(`node ${scriptPath} --test ${options}`,
-			{inputLines: [
-				"Input"
-			]}
-		);
-		const  answer = fs.readFileSync(testFolderPath + fileNameHead + "_1_answer.txt")
-			.toString().substr(cutBOM);
-
-		// Check
-		if (returns.stdout !== answer) {
-			printDifferentPaths(`_output.txt`, fileNameHead + '_1_answer.txt');
-			fs.writeFileSync(testFolderPath + "_output.txt", returns.stdout);
-			throw new Error();
-		}
-	}
-}
-
-// TestOfLocale
-async function  TestOfLocale() {
-	let  returns: ProcessReturns;
-
-    console.log(`TestCase: TestOfLocale >> default`);
-    returns = await callChildProccess(`node ${scriptPath} --command  show-locale`);
-	const  defaultLocale = Intl.NumberFormat().resolvedOptions().locale;
-    if (returns.stdout !== defaultLocale +'\n') {
-        throw new Error();
-    }
-
-    console.log(`TestCase: TestOfLocale >> fr-FR`);
-    returns = await callChildProccess(`node ${scriptPath} --command  show-locale --locale fr-FR`);
-    if (returns.stdout !== 'fr-FR\n') {
-        throw new Error();
-    }
-}
-
-// deleteFile
-function  deleteFile(path: string) {
-    if (fs.existsSync(path)) {
-        fs.unlinkSync(path);
-    }
-}
-
-// printDifferentPaths
-function  printDifferentPaths(path1: string, path2: string) {
-	console.log(`Error: different between the following files`);
-	console.log(`  Path1: ${testFolderFullPath + path1}`);
-	console.log(`  Path2: ${testFolderFullPath + path2}`);
-}
-
-// diffStrings
-function  diffStrings(result: string, answer: string) {
-	const  resultFilePath = '_output.txt';
-	const  answerFilePath = '_answer.txt';
-
-	fs.writeFileSync(testFolderFullPath + resultFilePath, result);
-	fs.writeFileSync(testFolderFullPath + answerFilePath, answer);
-
-	printDifferentPaths(resultFilePath, answerFilePath);
+	// Check
+	console.log(clipboardy.readSync());
 }
 
 // callChildProccess

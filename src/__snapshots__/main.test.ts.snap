@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cut indent: 1 sourceFileContents 1`] = `
+"        Section 1:
+        Section 2:
+          Section 2-1:
+
+            Section 2-1-1:
+        Section 3:
+"
+`;
+
+exports[`cut indent: answer 1`] = `
+"Section 1:
+Section 2:
+  Section 2-1:
+
+    Section 2-1-1:
+Section 3:
+"
+`;
+
+exports[`insert indent: 1 sourceFileContents 1`] = `
+"        Section 1:
+Section 2:
+  Section 2-1:
+
+    Section 2-1-1:
+Section 3:
+"
+`;
+
+exports[`insert indent: answer 1`] = `
+"        Section 1:
+        Section 2:
+          Section 2-1:
+
+            Section 2-1-1:
+        Section 3:
+"
+`;
+
+exports[`insert line 2 indent: 1 sourceFileContents 1`] = `
+"        Section 1:
+  Section 1-1:
+
+    Section 1-1-1:
+"
+`;
+
+exports[`insert line 2 indent: answer 1`] = `
+"        Section 1:
+          Section 1-1:
+
+            Section 1-1-1:
+"
+`;
