@@ -1,5 +1,113 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`change 2 spaces to tab and cut indent: 1 sourceFileContents 1`] = `
+"      Section() {
+        Section:
+
+          SubSection:
+      }
+"
+`;
+
+exports[`change 2 spaces to tab and cut indent: answer 1`] = `
+"Section() {
+	Section:
+
+		SubSection:
+}
+"
+`;
+
+exports[`change 4 spaces to tab and insert indent: 1 sourceFileContents 1`] = `
+"        Section() {
+    Section:
+
+        SubSection:
+}
+"
+`;
+
+exports[`change 4 spaces to tab and insert indent: answer 1`] = `
+"		Section() {
+			Section:
+
+				SubSection:
+		}
+"
+`;
+
+exports[`change tab size 2 to 4 and insert indent: 1 sourceFileContents 1`] = `
+"        Section() {
+  Section:
+
+    SubSection:
+}
+"
+`;
+
+exports[`change tab size 2 to 4 and insert indent: answer 1`] = `
+"        Section() {
+            Section:
+
+                SubSection:
+        }
+"
+`;
+
+exports[`change tab size 4 to 2 and cut indent: 1 sourceFileContents 1`] = `
+"        Section() {
+            Section:
+
+                SubSection:
+        }
+"
+`;
+
+exports[`change tab size 4 to 2 and cut indent: answer 1`] = `
+"Section() {
+  Section:
+
+    SubSection:
+}
+"
+`;
+
+exports[`change tab to 2 spaces and cut indent: 1 sourceFileContents 1`] = `
+"			Section() {
+				Section:
+
+					SubSection:
+			}
+"
+`;
+
+exports[`change tab to 2 spaces and cut indent: answer 1`] = `
+"Section() {
+  Section:
+
+    SubSection:
+}
+"
+`;
+
+exports[`change tab to 4 spaces and insert indent: 1 sourceFileContents 1`] = `
+"			Section() {
+	Section:
+
+		SubSection:
+}
+"
+`;
+
+exports[`change tab to 4 spaces and insert indent: answer 1`] = `
+"            Section() {
+                Section:
+
+                    SubSection:
+            }
+"
+`;
+
 exports[`cut indent: 1 sourceFileContents 1`] = `
 "        Section 1:
         Section 2:

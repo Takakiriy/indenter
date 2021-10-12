@@ -7,8 +7,10 @@
 <!-- TOC depthFrom:1 -->
 
 - [indenter](#indenter)
-  - [How to use　- insert indent](#how-to-use--insert-indent)
-  - [How to use　- delete indent](#how-to-use--delete-indent)
+  - [How to use - insert indent](#how-to-use---insert-indent)
+  - [How to use - delete indent](#how-to-use---delete-indent)
+  - [How to use - change the number of indented spaces (tab size)](#how-to-use---change-the-number-of-indented-spaces-tab-size)
+  - [How to use - replace tabs and spaces at the beginning of a line](#how-to-use---replace-tabs-and-spaces-at-the-beginning-of-a-line)
   - [Install](#install)
     - [For Windows](#for-windows)
     - [For mac](#for-mac)
@@ -22,7 +24,7 @@
 <!-- /TOC -->
 
 
-## How to use　- insert indent
+## How to use - insert indent
 
 1. (First time only) Install indenter
 2. Copy the text you want to edit to the clipboard.
@@ -44,7 +46,7 @@ If there was lines of indent that is shallower than
 the first line of text, indenter inserts the indent.
 
 
-## How to use　- delete indent
+## How to use - delete indent
 
 1. (First time only) Install indenter
 2. Copy the text you want to edit to the clipboard
@@ -59,6 +61,43 @@ the first line of text, indenter inserts the indent.
        Section 1:   
        Section 2:
          Section 2-1:
+
+If there is no line of indent that is shallower than
+the first line of text, indenter removes the indent.
+
+
+## How to use - change the number of indented spaces (tab size)
+
+Specify the value before changing the tab size and the value after changing it.
+When changing from 2 to 4:
+
+    indenter 24
+
+When changing from 4 to 2:
+
+    indenter 42
+
+If there was lines of indent that is shallower than
+the first line of text, indenter inserts the indent.
+
+If there is no line of indent that is shallower than
+the first line of text, indenter removes the indent.
+
+
+## How to use - replace tabs and spaces at the beginning of a line
+
+When changing from a tab to a space, specify t and the number of spaces (1 to 9).
+For 4 spaces:
+
+    indenter t4
+
+When changing from spaces to tabs, specify the number of spaces (1-9) and t.
+For 4 spaces:
+
+    indenter 4t
+
+If there was lines of indent that is shallower than
+the first line of text, indenter inserts the indent.
 
 If there is no line of indent that is shallower than
 the first line of text, indenter removes the indent.
