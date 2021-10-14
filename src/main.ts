@@ -48,7 +48,7 @@ export async function  main() {
         }
 
         // insert indent
-        for (var lineNum = 2;  lineNum < lines.length;  lineNum += 1 ) {
+        for (var lineNum = 2;  lineNum <= lines.length;  lineNum += 1 ) {
             if (lines[lineNum - 1] !== '') {
                 const  line = lines[lineNum - 1];
                 const  indentBefore = indentRegularExpression.exec( line )![0];
@@ -64,7 +64,7 @@ export async function  main() {
     } else {
 
         // cut indent
-        for (var lineNum = 1;  lineNum < lines.length;  lineNum += 1 ) {
+        for (var lineNum = 1;  lineNum <= lines.length;  lineNum += 1 ) {
             const  unindentedLine = lines[lineNum - 1].substr(minIndentLength);
             const  indentBefore = indentRegularExpression.exec( unindentedLine )![0];
             if (isChangingToTab) {

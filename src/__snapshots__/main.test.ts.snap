@@ -108,6 +108,24 @@ exports[`change tab to 4 spaces and insert indent: answer 1`] = `
 "
 `;
 
+exports[`cut indent at the last line: 1 sourceFileContents 1`] = `
+"        Section 1:
+        Section 2:
+          Section 2-1:
+
+            Section 2-1-1:
+        Section 3:"
+`;
+
+exports[`cut indent at the last line: answer 1`] = `
+"Section 1:
+Section 2:
+  Section 2-1:
+
+    Section 2-1-1:
+Section 3:"
+`;
+
 exports[`cut indent: 1 sourceFileContents 1`] = `
 "        Section 1:
         Section 2:
