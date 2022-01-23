@@ -7,8 +7,8 @@
 <!-- TOC depthFrom:1 -->
 
 - [indenter](#indenter)
-  - [How to use - insert indent](#how-to-use---insert-indent)
   - [How to use - delete indent](#how-to-use---delete-indent)
+  - [How to use - insert indent](#how-to-use---insert-indent)
   - [How to use - change the number of indented spaces (tab size)](#how-to-use---change-the-number-of-indented-spaces-tab-size)
   - [How to use - replace tabs and spaces at the beginning of a line](#how-to-use---replace-tabs-and-spaces-at-the-beginning-of-a-line)
   - [Install](#install)
@@ -22,6 +22,26 @@
     - [Test without Jest](#test-without-jest)
 
 <!-- /TOC -->
+
+
+## How to use - delete indent
+
+1. (First time only) Install indenter
+2. Copy the text you want to edit to the clipboard
+
+               Section 1:   
+               Section 2:
+                 Section 2-1:
+
+3. Run indenter
+4. The deleted indent text is copied to the clipboard
+
+       Section 1:   
+       Section 2:
+         Section 2-1:
+
+If there is no line of indent that is shallower than
+the first line of text, indenter removes the indent.
 
 
 ## How to use - insert indent
@@ -44,26 +64,6 @@
 
 If there was lines of indent that is shallower than
 the first line of text, indenter inserts the indent.
-
-
-## How to use - delete indent
-
-1. (First time only) Install indenter
-2. Copy the text you want to edit to the clipboard
-
-               Section 1:   
-               Section 2:
-                 Section 2-1:
-
-3. Run indenter
-4. The deleted indent text is copied to the clipboard
-
-       Section 1:   
-       Section 2:
-         Section 2-1:
-
-If there is no line of indent that is shallower than
-the first line of text, indenter removes the indent.
 
 
 ## How to use - change the number of indented spaces (tab size)
