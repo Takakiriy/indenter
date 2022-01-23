@@ -129,8 +129,18 @@ To use indenter, you must install Node.js.
 
             npm install --only=production
 
+    If you use cmd.exe:
+        Create a batch file that launches indenter into the folder where PATH:
+            Windows Start >> (Input) cmd >> Command Prompt :
+                cd  %USERPROFILE%\Downloads\indenter-master
+                set script=%USERPROFILE%\AppData\Local\Microsoft\WindowsApps\indenter.bat
+
+                echo @echo off> %script%
+                echo set NODE_PATH=%cd%\node_modules>> %script%
+                echo node  %cd%\build\indenter.js>> %script%
+
     If you use PowerShell:
-        Create a PS1 script file that launches indenter into the folder where PATH of PowerShell:
+        Create a PS1 script file that launches indenter into the folder where PATH:
             Windows Start >> (Input) PowerShell :
                 cd  ${env:USERPROFILE}\Downloads\indenter-master
                 ${current_folder} = Convert-Path "."

@@ -127,8 +127,18 @@ indenter を使うには Node.js のインストールが必要です。
 
             npm install --only=production
 
+    cmd.exe を使う場合:
+        PATH が通ったフォルダーに indenter を起動する バッチ ファイル を作ります:
+            Windows スタート >> cmd（と入力）>> コマンド プロンプト :
+                cd  %USERPROFILE%\Downloads\indenter-master
+                set script=%USERPROFILE%\AppData\Local\Microsoft\WindowsApps\indenter.bat
+
+                echo @echo off> %script%
+                echo set NODE_PATH=%cd%\node_modules>> %script%
+                echo node  %cd%\build\indenter.js>> %script%
+
     PowerShell を使う場合:
-        PowerShell の PATH が通ったフォルダーに indenter を起動する PS1 スクリプト ファイル を作ります:
+        PATH が通ったフォルダーに indenter を起動する PS1 スクリプト ファイル を作ります:
             Windows スタート >> PowerShell（と入力） :
                 cd  ${env:USERPROFILE}\Downloads\indenter-master
                 ${current_folder} = Convert-Path "."
