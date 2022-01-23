@@ -137,7 +137,7 @@ To use indenter, you must install Node.js.
 
                 echo @echo off> %script%
                 echo set NODE_PATH=%cd%\node_modules>> %script%
-                echo node  %cd%\build\indenter.js>> %script%
+                echo node  %cd%\build\indenter.js %*>> %script%
 
     If you use PowerShell:
         Create a PS1 script file that launches indenter into the folder where PATH:

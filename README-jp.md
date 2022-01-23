@@ -135,7 +135,7 @@ indenter を使うには Node.js のインストールが必要です。
 
                 echo @echo off> %script%
                 echo set NODE_PATH=%cd%\node_modules>> %script%
-                echo node  %cd%\build\indenter.js>> %script%
+                echo node  %cd%\build\indenter.js %*>> %script%
 
     PowerShell を使う場合:
         PATH が通ったフォルダーに indenter を起動する PS1 スクリプト ファイル を作ります:
