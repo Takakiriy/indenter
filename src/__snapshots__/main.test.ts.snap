@@ -36,6 +36,38 @@ exports[`change 4 spaces to tab and insert indent: answer 1`] = `
 "
 `;
 
+exports[`change YAML tab size 2 to 4 and insert indent: 1 sourceFileContents 1`] = `
+"        sections:
+  - Section1:
+    - Section2:
+      SubSection:
+"
+`;
+
+exports[`change YAML tab size 2 to 4 and insert indent: answer 1`] = `
+"        sections:
+            -   Section1:
+                -   Section2:
+                    SubSection:
+"
+`;
+
+exports[`change YAML tab size 4 to 2 and cut indent: 1 sourceFileContents 1`] = `
+"        sections:
+            -   Section1:
+                -   Section2:
+                    SubSection:
+"
+`;
+
+exports[`change YAML tab size 4 to 2 and cut indent: answer 1`] = `
+"sections:
+  - Section1:
+    - Section2:
+      SubSection:
+"
+`;
+
 exports[`change tab size 2 to 4 and insert indent: 1 sourceFileContents 1`] = `
 "        Section() {
   Section:

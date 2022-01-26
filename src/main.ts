@@ -13,7 +13,7 @@ export async function  main() {
     }
 
     const  inputText = clipboardy.readSync();
-    const  lines = inputText.split('\n');
+    const  lines: string[] = inputText.split('\n');
     const  nullLength = 9999;
     const  indentRegularExpression = /^( |\t)*/;
     if (inputText.trim() === '') {
@@ -50,7 +50,7 @@ export async function  main() {
         // insert indent
         for (var lineNum = 2;  lineNum <= lines.length;  lineNum += 1 ) {
             if (lines[lineNum - 1] !== '') {
-                const  line = lines[lineNum - 1];
+                var    line = lines[lineNum - 1];
                 const  indentBefore = indentRegularExpression.exec( line )![0];
                 if (isChangingToTab) {
                     var  indentAfter = '\t'.repeat(indentBefore.length * tabSizeAfter / tabSizeBefore);
@@ -58,14 +58,18 @@ export async function  main() {
                     var  indentAfter = ' '.repeat(indentBefore.length * tabSizeAfter / tabSizeBefore);
                 }
 
-                lines[lineNum - 1] = firstLineIndentAfter + indentAfter + line.substr(indentBefore.length);
+                line = firstLineIndentAfter + indentAfter + line.substring(indentBefore.length);
+                if (line.trimLeft()[0] === '-') {
+                    line = changeSpacesRightOfHyphen(line, tabSizeAfter);
+                }
+                lines[lineNum - 1] = line;
             }
         }
     } else {
 
         // cut indent
         for (var lineNum = 1;  lineNum <= lines.length;  lineNum += 1 ) {
-            const  unindentedLine = lines[lineNum - 1].substr(minIndentLength);
+            var    unindentedLine = lines[lineNum - 1].substring(minIndentLength);
             const  indentBefore = indentRegularExpression.exec( unindentedLine )![0];
             if (isChangingToTab) {
                 var  indentAfter = '\t'.repeat(indentBefore.length * tabSizeAfter / tabSizeBefore);
@@ -73,12 +77,25 @@ export async function  main() {
                 var  indentAfter = ' '.repeat(indentBefore.length * tabSizeAfter / tabSizeBefore);
             }
 
-            lines[lineNum - 1] = indentAfter + unindentedLine.substr(indentBefore.length);
+            var  line = indentAfter + unindentedLine.substring(indentBefore.length);
+            if (line.trimLeft()[0] === '-') {
+                line = changeSpacesRightOfHyphen(line, tabSizeAfter);
+            }
+            lines[lineNum - 1] = line;
         }
     }
 
     const  outputText = lines.join('\n');
     clipboardy.writeSync(outputText);
+}
+
+// changeSpacesRightOfHyphen
+function  changeSpacesRightOfHyphen(line: string, tabSizeAfter: number): string {
+    const  hyphenPosition = line.indexOf( '-' );
+    const  element = line.substring(hyphenPosition + 1).trimLeft();
+
+    line = line.substring(0, hyphenPosition + 1) + ' '.repeat(tabSizeAfter - 1) + element;
+    return  line;
 }
 
 // parseCommand
