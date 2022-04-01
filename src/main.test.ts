@@ -15,6 +15,7 @@ test.each([
     ["insert line 2 indent", []],
     ["cut indent", []],
     ["cut indent at the last line", []],
+    ["cut indent in the YAML", []],
     ["change tab size 2 to 4 and insert indent", ["24"]],
     ["change tab size 4 to 2 and cut indent", ["42"]],
     ["change YAML tab size 2 to 4 and insert indent", ["24"]],

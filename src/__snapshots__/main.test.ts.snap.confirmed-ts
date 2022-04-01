@@ -158,6 +158,20 @@ Section 2:
 Section 3:"
 `;
 
+exports[`cut indent in the YAML: 1 sourceFileContents 1`] = `
+"    a:
+        - a
+        - b
+"
+`;
+
+exports[`cut indent in the YAML: answer 1`] = `
+"a:
+    - a
+    - b
+"
+`;
+
 exports[`cut indent: 1 sourceFileContents 1`] = `
 "        Section 1:
         Section 2:

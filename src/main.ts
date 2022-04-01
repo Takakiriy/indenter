@@ -59,7 +59,7 @@ export async function  main() {
                 }
 
                 line = firstLineIndentAfter + indentAfter + line.substring(indentBefore.length);
-                if (line.trimLeft()[0] === '-') {
+                if (line.trimLeft()[0] === '-'  &&  tabSizeBefore !== tabSizeAfter) {
                     line = changeSpacesRightOfHyphen(line, tabSizeAfter);
                 }
                 lines[lineNum - 1] = line;
@@ -78,7 +78,7 @@ export async function  main() {
             }
 
             var  line = indentAfter + unindentedLine.substring(indentBefore.length);
-            if (line.trimLeft()[0] === '-') {
+            if (line.trimLeft()[0] === '-'  &&  tabSizeBefore !== tabSizeAfter) {
                 line = changeSpacesRightOfHyphen(line, tabSizeAfter);
             }
             lines[lineNum - 1] = line;
