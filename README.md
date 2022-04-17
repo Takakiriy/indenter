@@ -79,6 +79,11 @@ When changing from 4 to 2:
 
 If there was lines of indent that is shallower than
 the first line of text, indenter inserts the indent.
+However, if you specify the number of indents in the second argument,
+the indents on the first line will be ignored.
+
+When changing the tab size from 4 to 2 and put 16 spaces in the entire:
+     indenter 42 16
 
 If there is no line of indent that is shallower than
 the first line of text, indenter removes the indent.

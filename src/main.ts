@@ -3,7 +3,7 @@ import { pp } from "./lib";
 
 // main
 export async function  main() {
-    const {isError, tabSizeBefore, tabSizeAfter, isChangingFromTab, isChangingToTab} = parseCommand();
+    const {isError, tabSizeBefore, tabSizeAfter, isChangingFromTab, isChangingToTab, indentLength} = parseCommand();
     if (isError) {
         console.log('Parameter error.');
         console.log('indenter [24]');
@@ -39,12 +39,13 @@ export async function  main() {
         return;
     }
 
-    if (minIndentLength < firstLineIndent.length) {
+    if (minIndentLength < firstLineIndent.length  &&  indentLength === null) {
         if (isChangingToTab) {
             var  firstLineIndentAfter = '\t'.repeat(firstLineIndent.length * tabSizeAfter / tabSizeBefore);
             lines[0] = firstLineIndentAfter + lines[0].substr(firstLineIndent.length);
         } else {
             var  firstLineIndentAfter = firstLineIndent;
+            // lines[0] is not changed.
         }
 
         // insert indent
@@ -59,7 +60,7 @@ export async function  main() {
                 }
 
                 line = firstLineIndentAfter + indentAfter + line.substring(indentBefore.length);
-                if (line.trimLeft()[0] === '-'  &&  tabSizeBefore !== tabSizeAfter) {
+                if (line.trimLeft().substring(0,2) === '- '  &&  tabSizeBefore !== tabSizeAfter) {
                     line = changeSpacesRightOfHyphen(line, tabSizeAfter);
                 }
                 lines[lineNum - 1] = line;
@@ -76,11 +77,22 @@ export async function  main() {
             } else {
                 var  indentAfter = ' '.repeat(indentBefore.length * tabSizeAfter / tabSizeBefore);
             }
+            if (indentLength !== null) {
+                if (isChangingToTab) {
+                    indentAfter = '\t'.repeat(indentLength * tabSizeAfter / tabSizeBefore) + indentAfter;
+                } else {
+                    indentAfter = ' '.repeat(indentLength) + indentAfter;
+                }
+            }
 
             var  line = indentAfter + unindentedLine.substring(indentBefore.length);
-            if (line.trimLeft()[0] === '-'  &&  tabSizeBefore !== tabSizeAfter) {
+            if (line.trimLeft().substring(0,2) === '- '  &&  tabSizeBefore !== tabSizeAfter) {
                 line = changeSpacesRightOfHyphen(line, tabSizeAfter);
             }
+            if (line.trim() === '') {
+                line = '';
+            }
+
             lines[lineNum - 1] = line;
         }
     }
@@ -105,13 +117,14 @@ function  parseCommand(): parsedCommand {
     var  tabSizeAfter  = 0;
     var  isChangingFromTab = false;
     var  isChangingToTab = false;
+    var  indentLength: number | null = null;
 
     if (programArguments.length === 0) {
         tabSizeBefore = 1;
         tabSizeAfter  = 1;
         isError = false;
 
-    } else if (programArguments.length === 1) {
+    } else if (programArguments.length >= 1) {
         const  command = programArguments[0];
         if (command  &&  command.length === 2) {
             if (command === 'tt') {
@@ -136,7 +149,10 @@ function  parseCommand(): parsedCommand {
             }
         }
     }
-    return  {isError, tabSizeBefore, tabSizeAfter, isChangingFromTab, isChangingToTab};
+    if (programArguments.length >= 2) {
+        indentLength = parseInt(programArguments[1]);
+    }
+    return  {isError, tabSizeBefore, tabSizeAfter, isChangingFromTab, isChangingToTab, indentLength};
 }
 
 interface parsedCommand {
@@ -145,6 +161,7 @@ interface parsedCommand {
     tabSizeAfter: number;
     isChangingFromTab: boolean;
     isChangingToTab: boolean;
+    indentLength: number | null;
 }
 
 // getStdOut

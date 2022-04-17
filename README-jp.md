@@ -77,6 +77,10 @@
 
 テキストの 1行目のインデントより浅いインデントの行があると、
 インデントを入れます。
+ただし、第2引数にインデントの数を指定した場合、1行目のインデントは無視されます。
+
+タブサイズを 4 から 2 に変えて全体のインデントを空白16文字入れる場合:
+    indenter 42 16
 
 テキストの 1行目のインデントより浅いインデントの行がないと、
 インデントを削除します。
@@ -185,7 +189,8 @@ indenter を使うには Node.js のインストールが必要です。
         curl -o indenter.zip -kL https://github.com/Takakiriy/indenter/archive/refs/heads/master.zip 
         rm -rf  indenter-old  &&  mv  indenter  indenter-old  #// 更新するとき
         unzip -o indenter.zip
-        mv  indenter-master  indenter  #// Zip ファイルを展開したフォルダー
+        mv  indenter-master  indenter
+            #// Zip ファイルを展開したフォルダー
         cd  indenter
 
         npm install --only=production

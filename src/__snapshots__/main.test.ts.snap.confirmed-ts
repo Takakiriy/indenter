@@ -1,5 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`bug case 1 of tab size 4 to 2: 1 sourceFileContents 1`] = `
+"            }
+        }
+    }
+"
+`;
+
+exports[`bug case 1 of tab size 4 to 2: answer 1`] = `
+"    }
+  }
+}
+"
+`;
+
+exports[`bug case 2 of tab size 4 to 2: 1 sourceFileContents 1`] = `
+"    ---
+    YAML Front Matter: example
+    ---
+    <xml>
+        contents
+    </xml>
+"
+`;
+
+exports[`bug case 2 of tab size 4 to 2: answer 1`] = `
+"---
+YAML Front Matter: example
+---
+<xml>
+  contents
+</xml>
+"
+`;
+
 exports[`change 2 spaces to tab and cut indent: 1 sourceFileContents 1`] = `
 "      Section() {
         Section:
@@ -65,6 +99,24 @@ exports[`change YAML tab size 4 to 2 and cut indent: answer 1`] = `
   - Section1:
     - Section2:
       SubSection:
+"
+`;
+
+exports[`change tab size 2 to 4 and insert indent 6: 1 sourceFileContents 1`] = `
+"Section() {
+  Section:
+
+    SubSection:
+}
+"
+`;
+
+exports[`change tab size 2 to 4 and insert indent 6: answer 1`] = `
+"      Section() {
+          Section:
+
+              SubSection:
+      }
 "
 `;
 

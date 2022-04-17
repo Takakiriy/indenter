@@ -18,12 +18,15 @@ test.each([
     ["cut indent in the YAML", []],
     ["change tab size 2 to 4 and insert indent", ["24"]],
     ["change tab size 4 to 2 and cut indent", ["42"]],
+    ["change tab size 2 to 4 and insert indent 6", ["24", "6"]],
     ["change YAML tab size 2 to 4 and insert indent", ["24"]],
     ["change YAML tab size 4 to 2 and cut indent", ["42"]],
     ["change 2 spaces to tab and cut indent", ["2t"]],
     ["change 4 spaces to tab and insert indent", ["4t"]],
     ["change tab to 2 spaces and cut indent", ["t2"]],
     ["change tab to 4 spaces and insert indent", ["t4"]],
+    ["bug case 1 of tab size 4 to 2", ["42", "0"]],
+    ["bug case 2 of tab size 4 to 2", ["42"]],
 ])("%s", async (caseName, parameters) => {
     const  inputText = lib.getSnapshot(`${caseName}: 1 sourceFileContents 1`);
     clipboardy.writeSync(inputText);
